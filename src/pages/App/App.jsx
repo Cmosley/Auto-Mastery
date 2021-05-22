@@ -1,37 +1,33 @@
-import React, { Component } from "react";
-import { Route, Redirect } from "react-router-dom";
+import React, { useState } from "react";
+import { Route, Redirect, useHistory } from "react-router-dom";
 import NavBar from "../../components/NavBar/NavBar";
 import Signup from "../Signup/Signup";
 import Login from "../Login/Login";
-import Users from "../Users/Users"
 import authService from "../../services/authService"
 import "./App.css";
 
-class App extends Component {
-  state = {
-    user: authService.getUser(),
-  };
+function App (props) {
+  const [user, setUser] = useState(authService.getUser())
+  const history = useHistory();
 
-  handleLogout = () => {
+  const handleLogout = () => {
     authService.logout();
-    this.setState({ user: null });
-    this.props.history.push("/");
+    setUser(null);
+    history.push("/");
   };
 
-  handleSignupOrLogin = () => {
-    this.setState({ user: authService.getUser() })
+  const handleSignupOrLogin = () => {
+    setUser(authService.getUser())
   }
 
-  render() {
-    const {user} = this.state
     return (
       <>
-        <NavBar user={this.state.user} handleLogout={this.handleLogout}/>
+        <NavBar user={user} handleLogout={handleLogout}/>
         <Route
           exact
           path="/"
           render={() => (
-            <h1></h1>
+            <h1>hello</h1>
           )}
         />
         <Route
@@ -40,7 +36,7 @@ class App extends Component {
           render={({ history }) => (
             <Signup
               history={history}
-              handleSignupOrLogin={this.handleSignupOrLogin}
+              handleSignupOrLogin={handleSignupOrLogin}
             />
           )}
         />
@@ -50,20 +46,13 @@ class App extends Component {
           render={({ history }) => (
             <Login
               history={history}
-              handleSignupOrLogin={this.handleSignupOrLogin}
+              handleSignupOrLogin={handleSignupOrLogin}
             />
           )}
         />
-        <Route 
-          exact
-          path="/users"
-          render={({ history}) =>
-            user ? <Users /> : <Redirect to="/login" />
-          }
-        />
+        
       </>
     );
   }
-}
 
 export default App;
