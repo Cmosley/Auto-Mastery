@@ -1,6 +1,7 @@
 import { Fragment, useState, useEffect } from 'react'
 import { Disclosure, Menu, Transition } from '@headlessui/react'
 import { LoginIcon, BellIcon, MenuIcon, XIcon } from '@heroicons/react/outline'
+import { Link, useHistory } from "react-router-dom";
 import './NavBar.css';
 
 const navigation = [
@@ -30,7 +31,7 @@ export default function NavBar(props) {
   }, [props.user]);
 
   return (
-    <Disclosure as="nav" className="bg-gray-100 shadow-md">
+    <Disclosure as="nav" className="bg-white shadow-md">
       {({ open }) => (
         <>
           <div className="max-w-7xl mx-auto px-2 sm:px-6 lg:px-8">
@@ -48,7 +49,9 @@ export default function NavBar(props) {
               </div>
               <div className="flex-1 flex items-center justify-center sm:items-stretch sm:justify-start">
                 <div className="flex-shrink-0 flex items-center">
+                  <Link to='/'>
                   <img width="250" src="/images/Auto-Mastery-logo-v.2.png" alt='logo'/>
+                  </Link>
                 </div>
                 <div className="hidden sm:ml-6 sm:flex sm:space-x-8">
                   {navigation.filter(item => item.loggedIn.includes(loggedIn)).map((item, idx) => (
@@ -133,7 +136,7 @@ export default function NavBar(props) {
                             {({ active }) => (
                               <a
                                 href="/"
-                                onClick={props.handleLougout}
+                                onClick={props.handleLogout}
                                 className={classNames(
                                   active ? 'bg-gray-100' : '',
                                   'block px-4 py-2 text-sm text-gray-700'
@@ -151,11 +154,12 @@ export default function NavBar(props) {
               </div>
               : 
               <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
-                
-                <button className="bg-gray-50 p-1 rounded-full text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                <a href='/login'>
+                <button  className="bg-gray-50 p-1 rounded-full text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
                   <span className="sr-only">Login</span>
                   <LoginIcon className="h-6 w-6" aria-hidden="true" />
                 </button>
+                </a>
               </div> 
               }
             </div>
