@@ -5,18 +5,11 @@ import { useForm } from '../../hooks/useForm'
 
 export default function Login (props) {
   const history = useHistory();
-  // const formRef = useRef();
   const [message, updateMessage] = useState('')
-  // const [formInvalid, setValidForm] = useState(true)
   const [loginValue, handleChange] = useForm({
     email: "",
     password: "",
   });
-
-  // useEffect(() => {
-  //   formRef.current.checkValidity() ? setValidForm(false) : setValidForm(true);
-  //   updateMessage('');
-  // }, [formValue]);
   
   const handleSubmit = async (e) => {
     const { handleSignupOrLogin } = props;
