@@ -1,16 +1,34 @@
 const Store = require("../models/store");
 const User = require("../models/user");
-const axios = require("axios").default;
 
 
 module.exports = {
     index, 
+    update,
     show, 
     create,
     submitSales,
     submitForm,
 }
 
+// refactored 
+function create(req, res) {
+  req.body.addedBy = req.user._id
+  Store.create(req.body)
+  .then(snippet => {res.json(snippet)})
+  .catch(err => {res.json(err)})
+}
+
+function update(req,res) {
+  console.log(`req.params.id: `, req.params.id)
+  console.log(`req.body: `, req.body)
+  Store.findByIdAndUpdate(req.params.id, req.body)
+    .then(store => {res.json(store)})
+    .catch(err => res.json(err))
+}
+
+
+//  not refactored
 function submitForm(req, res) {
     Store.findById(req.params.id,)
     .then((stores) => {
@@ -37,14 +55,7 @@ function submitSales(req, res) {
   })
 }
 
-function create(req, res) {
-    
-    Store.create(req.body)
-    .then(() => {
-      res.redirect('/stores')
-    })
 
-  }
 
 function show(req, res) {
     Store.findById(req.params.id,)
@@ -57,6 +68,7 @@ function show(req, res) {
       })
   }
 
+  // refactor with fetch, possibly move out of this controller?
 function index(req, res) {
   Store.findById({storeid: req.user._id})
   axios
