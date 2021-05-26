@@ -1,5 +1,6 @@
 import { ArrowSmDownIcon, ArrowSmUpIcon } from '@heroicons/react/solid'
 import { TruckIcon, CurrencyDollarIcon, CashIcon } from '@heroicons/react/outline'
+import LineChart from "../../components/SalesGraph/SalesGraph"
 
 
 const stats = [
@@ -16,6 +17,12 @@ export const Dashboard = props => {
   return (
     <>
     <div className="mt-4 container mx-auto">
+      <div className="bg-gradient-to-r from-primary to-secondary">
+        <div className="mx-8 mt-8 ">
+        <LineChart />
+        </div>
+        
+      </div>
       <h3 className="text-lg leading-6 font-medium text-gray-900">Last 30 days</h3>
 
       <dl className="mt-5 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
