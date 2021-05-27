@@ -17,6 +17,7 @@ export const SalesList = props => {
             </ul>
         </section>
         <div className="mb-4"></div>
+        
         </>
   )
 }
